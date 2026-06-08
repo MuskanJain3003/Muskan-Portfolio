@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muskan Jain | Quant Developer & Data Analyst Portfolio</title>
+  <meta name="description" content="Portfolio of Muskan Jain - Data Analyst, Python Developer, and MT4/MT5 Quant Developer. Focused on building scalable, data-driven backtesting engines, dashboards, and automated trading integrations.">
+  <link rel="stylesheet" href="styles.css">
+  <!-- FontAwesome Icons via SVG directly inside code for premium vector crispness -->
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header id="header">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        M<span>J</span>.
+      </a>
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#quant-sandbox">Quant Sandbox</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <a href="mailto:muskanjain6264@gmail.com" class="resume-btn">Hire Me</a>
+        <div class="menu-toggle" id="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section with Canvas particles and Interactive CLI Terminal -->
+  <section class="hero" id="about">
+    <canvas class="hero-canvas" id="hero-canvas"></canvas>
+    <div class="container hero-content">
+      <div class="hero-text reveal">
+        <span class="hero-greet">SYSTEM.INITIALIZE_()</span>
+        <h1 class="hero-name">Muskan Jain</h1>
+        <h2 class="hero-role">Data Analyst & Python Developer</h2>
+        <p class="hero-description">
+          A detail-oriented Data Analyst with 1.5+ years of experience specialized in building Python-based automation pipelines, high-frequency trading models (MQL4/MQL5), and interactive real-time reporting dashboards.
+        </p>
+        <div class="hero-cta">
+          <a href="#quant-sandbox" class="btn-primary">Explore Quant Sandbox</a>
+          <a href="#projects" class="btn-secondary">View Projects</a>
+        </div>
+      </div>
+      
+      <div class="hero-widget reveal" style="transition-delay: 0.15s;">
+        <div class="terminal">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="terminal-dot dot-red"></span>
+              <span class="terminal-dot dot-yellow"></span>
+              <span class="terminal-dot dot-green"></span>
+            </div>
+            <div class="terminal-title">muskan_jain_core.sh</div>
+            <div style="width: 48px;"></div>
+          </div>
+          <div class="terminal-body" id="terminal-body">
+            <div class="terminal-line"><span class="terminal-prompt">$</span>cat greeting.txt</div>
+            <div class="terminal-line" style="color: var(--text-secondary);">Welcome to my interactive terminal! Type 'help' to see available commands or 'about' to learn more.</div>
+            <div class="terminal-line"><span class="terminal-prompt">$</span>python -c "print('Ready to build pipelines!')"</div>
+            <div class="terminal-line" style="color: var(--accent-cyan);">Ready to build pipelines!</div>
+            <div class="terminal-input-line" id="terminal-input-line">
+              <span class="terminal-prompt">$</span>
+              <input type="text" class="terminal-input" id="terminal-input" autocomplete="off" spellcheck="false" placeholder="type help...">
+              <span class="terminal-cursor" id="terminal-cursor"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quant Sandbox Widget Section -->
+  <section id="quant-sandbox" style="background: hsla(222, 47%, 2%, 0.4);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">interactive demonstration</span>
+        <h2 class="section-title">Quant Backtesting Engine</h2>
+      </div>
+      
+      <div class="glass quant-dashboard reveal">
+        <!-- Chart Visualization Area -->
+        <div class="quant-chart-pane">
+          <div class="quant-controls">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 0.85rem; font-family: var(--font-mono); color: var(--text-muted);">Strategy:</span>
+              <select class="strategy-select" id="strategy-selector">
+                <option value="ema">MQL5 Dual EMA Crossover</option>
+                <option value="vol">Options Volatility Arbitrage</option>
+                <option value="trend">Trending Sector Breakout (10Y Stock Data)</option>
+              </select>
+            </div>
+            <button class="run-btn" id="run-backtest-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Run Backtest
+            </button>
+          </div>
+          
+          <div class="chart-viewport">
+            <div class="chart-watermark" id="chart-watermark">Engine Idle</div>
+            <canvas class="chart-canvas" id="chart-canvas"></canvas>
+          </div>
+        </div>
+        
+        <!-- Live Metrics Sidebar -->
+        <div class="metrics-pane">
+          <div class="metric-card">
+            <span class="metric-label">Engine Status</span>
+            <span class="metric-value" id="engine-status" style="color: var(--accent-cyan); font-size: 1.3rem;">READY</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Win Rate</span>
+            <span class="metric-value positive" id="metric-win-rate">--%</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Profit Factor</span>
+            <span class="metric-value positive" id="metric-profit-factor">--</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Max Drawdown</span>
+            <span class="metric-value negative" id="metric-drawdown">--%</span>
+          </div>
+          
+          <div class="engine-status-console" id="status-console">
+            <div>[System] Backtesting Engine initialized.</div>
+            <div>[System] Awaiting strategy execution command.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Filterable Section -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">technical capabilities</span>
+        <h2 class="section-title">My Tech Stack & Skills</h2>
+      </div>
+      
+      <div class="skills-filter-container reveal">
+        <button class="filter-btn active" data-filter="all">All Skills</button>
+        <button class="filter-btn" data-filter="languages">Languages</button>
+        <button class="filter-btn" data-filter="analytics">Data Analytics</button>
+        <button class="filter-btn" data-filter="databases">Databases</button>
+        <button class="filter-btn" data-filter="tools">Tools & Platforms</button>
+      </div>
+      
+      <div class="skills-grid reveal">
+        <!-- Skill items dynamically grouped -->
+        <div class="glass skill-card" data-category="languages">
+          <div class="skill-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18L22 12L16 6"></path><path d="M8 6L2 12L8 18"></path></svg>
+          </div>
+          <div>
+            <h3 class="skill-name">Languages</h3>
+            <div class="skill-tags-list" style="margin-top: 12px;">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">C++</span>
+              <span class="skill-tag">HTML5</span>
+              <span class="skill-tag">MQL4/MQL5</span>
+              <span class="skill-tag">Pine Script</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="glass skill-card" data-category="analytics">
+          <div class="skill-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          </div>
+          <div>
+            <h3 class="skill-name">Data Analytics</h3>
+            <div class="skill-tags-list" style="margin-top: 12px;">
+              <span class="skill-tag">Pandas</span>
+              <span class="skill-tag">NumPy</span>
+              <span class="skill-tag">Matplotlib</span>
+              <span class="skill-tag">Statistics</span>
+              <span class="skill-tag">Power BI</span>
+              <span class="skill-tag">Streamlit</span>
+              <span class="skill-tag">Excel</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="glass skill-card" data-category="databases">
+          <div class="skill-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg>
+          </div>
+          <div>
+            <h3 class="skill-name">Databases</h3>
+            <div class="skill-tags-list" style="margin-top: 12px;">
+              <span class="skill-tag">MYSQL</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">SQL Server</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass skill-card" data-category="tools">
+          <div class="skill-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+          </div>
+          <div>
+            <h3 class="skill-name">Tools & Platforms</h3>
+            <div class="skill-tags-list" style="margin-top: 12px;">
+              <span class="skill-tag">FastAPI</span>
+              <span class="skill-tag">Postman</span>
+              <span class="skill-tag">TradingView</span>
+              <span class="skill-tag">MT4 / MT5</span>
+              <span class="skill-tag">Git/GitHub</span>
+              <span class="skill-tag">VS Code</span>
+              <span class="skill-tag">PyCharm</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass skill-card" data-category="analytics">
+          <div class="skill-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+          </div>
+          <div>
+            <h3 class="skill-name">Core Concepts</h3>
+            <div class="skill-tags-list" style="margin-top: 12px;">
+              <span class="skill-tag">ETL Pipelines</span>
+              <span class="skill-tag">Data Visualizations</span>
+              <span class="skill-tag">Statistical Analysis</span>
+              <span class="skill-tag">Data Cleansing</span>
+              <span class="skill-tag">Data Structures</span>
+              <span class="skill-tag">Algorithms</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Experience Timeline -->
+  <section id="experience" style="background: hsla(222, 47%, 2%, 0.4);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">professional timeline</span>
+        <h2 class="section-title">Work Experience</h2>
+      </div>
+      
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-node"></div>
+          <div class="glass timeline-content">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Data Analyst & MT4 Developer</h3>
+                <span class="timeline-company">PNP Infotech Indore Pvt. Ltd.</span>
+              </div>
+              <span class="timeline-date">Sep 2024 – Present</span>
+            </div>
+            <ul class="timeline-desc">
+              <li>Developed quantitative trading models using MQL4/MQL5 and analyzed live market datasets to generate data-driven trading insights.</li>
+              <li>Automated data extraction, transformation, and processing pipelines for high-frequency market data analysis.</li>
+              <li>Designed and optimized MongoDB aggregation pipelines and SQL queries for large CRM and trading datasets, improving query performance and reporting efficiency.</li>
+              <li>Built RESTful APIs for seamless integration between trading systems, analytics dashboards, and internal applications.</li>
+              <li>Created analytical reports and visualizations to identify trade performance trends, sector-wise growth opportunities, and risk metrics.</li>
+              <li>Collaborated with business and strategy teams to perform statistical analysis and support decision-making using real-time data.</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="timeline-item reveal">
+          <div class="timeline-node"></div>
+          <div class="glass timeline-content">
+            <div class="timeline-header">
+              <div>
+                <h3 class="timeline-role">Data Scientist Intern</h3>
+                <span class="timeline-company">BitSquad Software Pvt. Ltd.</span>
+              </div>
+              <span class="timeline-date">Feb 2024 – July 2024</span>
+            </div>
+            <ul class="timeline-desc">
+              <li>Built end-to-end pipelines for transforming raw CRM and external datasets into actionable business insights.</li>
+              <li>Applied statistical and ML techniques to identify patterns in Netflix user behavior, improving retention by 18% through predictive targeting.</li>
+              <li>Developed secure APIs for real-time data integration, enhancing reliability of the analytics workflow.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Showcase Section -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">selected works</span>
+        <h2 class="section-title">Projects / Open Source</h2>
+      </div>
+      
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="glass project-card reveal">
+          <div class="project-visual">
+            <svg class="project-graph" viewBox="0 0 200 100">
+              <!-- Grid Lines -->
+              <line x1="20" y1="80" x2="180" y2="80" stroke="var(--card-border)" stroke-dasharray="2,2"/>
+              <line x1="20" y1="50" x2="180" y2="50" stroke="var(--card-border)" stroke-dasharray="2,2"/>
+              <line x1="20" y1="20" x2="180" y2="20" stroke="var(--card-border)" stroke-dasharray="2,2"/>
+              <!-- Green Candles (Profit/Backtesting theme) -->
+              <rect x="40" y="30" width="8" height="30" fill="var(--accent-green)" opacity="0.8"/>
+              <line x1="44" y1="20" x2="44" y2="70" stroke="var(--accent-green)" stroke-width="1.5"/>
+              
+              <rect x="70" y="20" width="8" height="40" fill="var(--accent-green)" opacity="0.8"/>
+              <line x1="74" y1="10" x2="74" y2="70" stroke="var(--accent-green)" stroke-width="1.5"/>
+              
+              <rect x="100" y="45" width="8" height="15" fill="var(--accent-red)" opacity="0.8"/>
+              <line x1="104" y1="35" x2="104" y2="70" stroke="var(--accent-red)" stroke-width="1.5"/>
+              
+              <rect x="130" y="15" width="8" height="40" fill="var(--accent-green)" opacity="0.8"/>
+              <line x1="134" y1="5" x2="134" y2="65" stroke="var(--accent-green)" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <div class="project-info">
+            <h3 class="project-title">Options Backtesting System</h3>
+            <p class="project-desc">Processed and analyzed multi-year tick-by-tick stock market datasets. Built a scalable analytics engine generating 5-second candle data and SQL-based drawdown and strategy analysis queries.</p>
+            <div class="project-tech">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">FastAPI</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">Pandas</span>
+              <span class="skill-tag">SQL</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="glass project-card reveal" style="transition-delay: 0.1s;">
+          <div class="project-visual">
+            <svg class="project-graph" viewBox="0 0 200 100">
+              <!-- Bar Chart Representation -->
+              <rect x="30" y="60" width="16" height="25" rx="2" fill="var(--accent-purple)" opacity="0.6"/>
+              <rect x="65" y="40" width="16" height="45" rx="2" fill="var(--accent-purple)" opacity="0.7"/>
+              <rect x="100" y="20" width="16" height="65" rx="2" fill="var(--accent-purple)" opacity="0.8"/>
+              <rect x="135" y="10" width="16" height="75" rx="2" fill="var(--accent-cyan)" opacity="0.9"/>
+              <!-- Trend Line -->
+              <path d="M 38 60 L 73 40 L 108 20 L 143 10" fill="none" stroke="var(--accent-cyan)" stroke-width="2"/>
+              <circle cx="143" cy="10" r="3" fill="var(--accent-cyan)"/>
+            </svg>
+          </div>
+          <div class="project-info">
+            <h3 class="project-title">Sales & Business Dashboard</h3>
+            <p class="project-desc">Developed an interactive performance dashboard analyzing sales, revenue growth, and customer retention. Performed automated ETL data cleaning using Python and SQL.</p>
+            <div class="project-tech">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Power BI</span>
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">Excel</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="glass project-card reveal" style="transition-delay: 0.2s;">
+          <div class="project-visual">
+            <svg class="project-graph" viewBox="0 0 200 100">
+              <!-- Wave/Trend/Smoothing theme -->
+              <path d="M 20 70 Q 50 30 80 60 T 140 20 T 180 30" fill="none" stroke="var(--accent-cyan)" stroke-width="2.5"/>
+              <path d="M 20 80 Q 50 40 80 70 T 140 30 T 180 40" fill="none" stroke="var(--accent-purple)" stroke-width="1.5" stroke-dasharray="3,3"/>
+              <!-- Heat dots indicating trend breakout -->
+              <circle cx="140" cy="20" r="5" fill="var(--accent-green)" opacity="0.8"/>
+              <circle cx="140" cy="20" r="10" fill="none" stroke="var(--accent-green)" stroke-width="1" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="project-info">
+            <h3 class="project-title">Trending Sector Detector</h3>
+            <p class="project-desc">Built a machine learning-based analytics system targeting sector-wise market trends. Processes 10 years of stock data to find breakout patterns using a Streamlit visual dashboard.</p>
+            <div class="project-tech">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Streamlit</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">Pandas</span>
+              <span class="skill-tag">Numpy</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="glass project-card reveal" style="transition-delay: 0.3s;">
+          <div class="project-visual">
+            <svg class="project-graph" viewBox="0 0 200 100">
+              <!-- Network/Database nodes -->
+              <circle cx="50" cy="50" r="6" fill="var(--accent-purple)"/>
+              <circle cx="100" cy="30" r="6" fill="var(--accent-cyan)"/>
+              <circle cx="100" cy="70" r="6" fill="var(--accent-cyan)"/>
+              <circle cx="150" cy="50" r="6" fill="var(--accent-green)"/>
+              <!-- Connectors -->
+              <line x1="56" y1="48" x2="94" y2="32" stroke="var(--card-border)" stroke-width="1.5"/>
+              <line x1="56" y1="52" x2="94" y2="68" stroke="var(--card-border)" stroke-width="1.5"/>
+              <line x1="106" y1="32" x2="144" y2="48" stroke="var(--card-border)" stroke-width="1.5"/>
+              <line x1="106" y1="68" x2="144" y2="52" stroke="var(--card-border)" stroke-width="1.5"/>
+              <line x1="100" y1="36" x2="100" y2="64" stroke="var(--card-border)" stroke-dasharray="2,2"/>
+            </svg>
+          </div>
+          <div class="project-info">
+            <h3 class="project-title">TradeStreet Platform</h3>
+            <p class="project-desc">A scalable bulk market data solution that integrates multiple trading strategies. Uses custom MongoDB pipelines to support live pattern detection and MT4/MT5 terminal sync.</p>
+            <div class="project-tech">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">MQL4/MQL5</span>
+              <span class="skill-tag">Pandas</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education & Achievements Panel -->
+  <section id="education" style="background: hsla(222, 47%, 2%, 0.4);">
+    <div class="container">
+      <div class="meta-grid">
+        <!-- Education column -->
+        <div class="reveal">
+          <div class="section-header">
+            <span class="section-tag">learning journey</span>
+            <h2 class="section-title">Education</h2>
+          </div>
+          <div class="education-list">
+            <div class="glass meta-card">
+              <div class="meta-card-header">
+                <div>
+                  <h3 class="meta-title">B.Tech in Computer Science Engineering</h3>
+                  <span class="meta-subtitle">Lakshmi Narain College of Technology</span>
+                </div>
+                <span class="timeline-date">2020 – 2024</span>
+              </div>
+              <p class="meta-detail">Completed B.Tech with an excellent academic score of <strong>CGPA: 8.0</strong>. Strong focus on software engineering, object-oriented concepts, and algorithmic foundations.</p>
+            </div>
+            
+            <div class="glass meta-card">
+              <div class="meta-card-header">
+                <div>
+                  <h3 class="meta-title">Senior Secondary Education (PCM)</h3>
+                  <span class="meta-subtitle">M.P Public School, Indore</span>
+                </div>
+                <span class="timeline-date">2019 – 2020</span>
+              </div>
+              <p class="meta-detail">Scored a percentage of <strong>76.6%</strong> in Physics, Chemistry, and Mathematics streams.</p>
+            </div>
+            
+            <div class="glass meta-card">
+              <div class="meta-card-header">
+                <div>
+                  <h3 class="meta-title">Higher Secondary Education</h3>
+                  <span class="meta-subtitle">St. Raphael Co-Ed School, Bhopal</span>
+                </div>
+                <span class="timeline-date">2017 – 2018</span>
+              </div>
+              <p class="meta-detail">Completed Higher Secondary with <strong>CGPA: 7.2</strong>.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievements & Certifications column -->
+        <div class="reveal" style="transition-delay: 0.15s;">
+          <div class="section-header">
+            <span class="section-tag">credentials & honors</span>
+            <h2 class="section-title">Achievements</h2>
+          </div>
+          <div class="achievements-list">
+            <div class="glass meta-card">
+              <div class="meta-card-header">
+                <div>
+                  <h3 class="meta-title">Employee of the Year</h3>
+                  <span class="meta-subtitle">July 2025</span>
+                </div>
+              </div>
+              <p class="meta-detail">Awarded with Employee of the Year for developing highly scalable analytics systems to process large-scale financial market datasets and real-time reporting workflows.</p>
+            </div>
+            
+            <div class="glass meta-card">
+              <div class="meta-card-header">
+                <div>
+                  <h3 class="meta-title">Professional Certifications</h3>
+                  <span class="meta-subtitle">Verified Credentials</span>
+                </div>
+              </div>
+              <ul class="timeline-desc" style="padding-left: 0; font-size: 0.9rem;">
+                <li style="color: var(--text-secondary); margin-bottom: 4px;">Business Analytics Foundations — Coursera Certified</li>
+                <li style="color: var(--text-secondary); margin-bottom: 4px;">Data Analyst Certification of Trainee Data Scientist — Bitsquad</li>
+                <li style="color: var(--text-secondary);">C++ Certification — Bluechip Institute</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Connections Section -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">get in touch</span>
+        <h2 class="section-title">Contact Me</h2>
+      </div>
+      
+      <div class="contact-layout reveal">
+        <div class="contact-info">
+          <p class="contact-text">
+            I'm currently open to opportunities in Python engineering, data pipelines, trading dashboard systems, and backend development. Reach out and let's build something exceptional!
+          </p>
+          
+          <div class="contact-methods">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </div>
+              <div class="contact-details">
+                <h4>Email</h4>
+                <p><a href="mailto:muskanjain6264@gmail.com">muskanjain6264@gmail.com</a></p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </div>
+              <div class="contact-details">
+                <h4>Mobile</h4>
+                <p><a href="tel:+916268451652">+91 6268451652</a></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="social-links">
+            <a href="https://linkedin.com" target="_blank" class="social-icon" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+            <a href="https://hackerrank.com" target="_blank" class="social-icon" aria-label="HackerRank">
+              <!-- Custom high tech angle bracket vector representation -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </a>
+            <a href="https://github.com" target="_blank" class="social-icon" aria-label="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+            </a>
+          </div>
+        </div>
+        
+        <form class="glass contact-form" onsubmit="event.preventDefault(); alert('Message simulation sent! Thank you.');">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-input" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-input" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" class="form-input" placeholder="Hi Muskan, I would like to discuss..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Transmit Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky Footer -->
+  <footer>
+    <div class="container footer-content">
+      <p class="footer-copy">&copy; 2026 Muskan Jain. All rights reserved.</p>
+      <p class="footer-tech">SYSTEM.RENDERED_ VIA VANILLA HTML/CSS/JS</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
